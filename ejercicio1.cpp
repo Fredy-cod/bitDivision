@@ -5,7 +5,7 @@
 
 using namespace std;
 //Variable global de la unidad como formato bitset.
-bitset<bitSize> unity(1); 
+bitset<bitSize> unity(1);
 //Suma de binarios, devuelve la suma de add1 y add2.
 bitset<bitSize> bitAdd(bitset<bitSize> &add1, bitset<bitSize> &add2){
   bool carry = 0;
@@ -27,9 +27,6 @@ bitset<bitSize> bitAdd(bitset<bitSize> &add1, bitset<bitSize> &add2){
       else result[i]=0;
     }
   }
-  if (carry==1){ 
-    cout << "Overflow in add!!" << endl;
-    }
   return result;
 }
 //Complemento a 2 del binario number en la variable result.
@@ -58,17 +55,23 @@ void bitDivision(bitset<bitSize> &Div, bitset<bitSize> &div){
   bitset <bitSize> aux= bitZero;
   for (int i=bitSize; i>0; i--){
     moveDivAux(Div, aux);
-    aux= bitSub(aux, div);
-
+    if (aux.to_ulong()<div.to_ulong()){
+        Div[0]=0;
+    }
+    else{
+        Div[0]=1;
+        aux= bitSub(aux, div);
+    }
   }
-
+  cout << "El cociente de la operación es: " << Div.to_ulong() << endl;
+  cout << "El residuo de la operación es: " << aux.to_ulong() << endl;
 }
 
 
 int main() {
-  int DivInt, divInt; 
+  int DivInt, divInt;
   do{
-    system("clear");
+    system("clear||cls");
     cout << "Ingrese 2 números menores o iguales a " << (~bitZero).to_ulong() << endl;
     cout << "Ingrese el dividendo: ";
     cin >> DivInt;
@@ -77,12 +80,6 @@ int main() {
   } while ((DivInt > (~bitZero).to_ulong()) || (divInt > (~bitZero).to_ulong()));
   bitset <bitSize> Div(DivInt);
   bitset <bitSize> div(divInt);
-  bitset <bitSize> aux(bitZero);
-  
-  bitset <bitSize> a;
-  a= bitSub(div, Div);
-  cout << a << endl;
-  //cout << "Div: " << Div << endl << "Aux: " << aux << endl;
-  //moveDivAux(Div, aux);
-  //cout << "Div: " << Div << endl << "Aux: " << aux << endl;
+
+  bitDivision(Div, div);
 }
