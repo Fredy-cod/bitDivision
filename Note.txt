@@ -1,0 +1,2 @@
+En la cabecera del código fuente está la dimensión de los bits a manipular como una constante global, al igual que bitZero que no es más que un objeto de la clase bitset que representa al 0; esto se hizo solo para realizar algunos cálculos con otras variables del mismo tipo.
+La entrada de valores a operar está como entrada de usuario, en el momento de la ejecución. Como se señaló, solo se hace la división entre números enteros positivos. 
